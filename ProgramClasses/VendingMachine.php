@@ -1,5 +1,4 @@
 <?php
-require_once dirname(__FILE__) . "/SaleStatistic.php";
 class VendingMachine
 {
     // List of article of the vending machine
