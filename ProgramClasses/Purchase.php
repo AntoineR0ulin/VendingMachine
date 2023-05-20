@@ -2,13 +2,13 @@
 
 class Purchase
 {
-    private string $date;
+    private DateTime $date;
     private float $amount;
-    public function __construct(string $date, float $amount){
+    public function __construct(DateTime $date, float $amount){
         $this->date = $date;
         $this->amount = $amount;
     }
-    public function GetDate() : string
+    public function GetDate() : DateTime
     {
         return $this->date;
     }

@@ -2,20 +2,20 @@
 
 namespace TestClasses;
 
-use AllowDynamicProperties;
 use Article;
 use PHPUnit\Framework\TestCase;
 use VendingMachine;
-use SaleStatistic;
+use VendingMachineWithStatistic;
 
 require_once dirname(__FILE__) . "/../ProgramClasses/Article.php";
 require_once dirname(__FILE__) . "/../ProgramClasses/VendingMachine.php";
-require_once dirname(__FILE__) . "/../ProgramClasses/SaleStatistic.php";
+require_once dirname(__FILE__) . "/../ProgramClasses/VendingMachineWithStatistic.php";
 
 
 class testsVendingMachine extends TestCase
 {
     private VendingMachine $testVendingMachine;
+    private VendingMachineWithStatistic $testVendingMachineWithStatistic;
     protected function setUp(): void
     {
         // Create new object of type VendingMachine
@@ -25,7 +25,6 @@ class testsVendingMachine extends TestCase
             new Article("Avril", "A03", 2, 2.10),
             new Article("KokoKola", "A04", 1, 2.95)
         ]);
-        $this->testSaleStatistic = new SaleStatistic();
     }
     public function testChoose_A01EnoughAmount_Success() : void
     {
@@ -137,31 +136,31 @@ class testsVendingMachine extends TestCase
     {
         // Given
         // Create new object of type VendingMachine
-        $this->testVendingMachine = new VendingMachine([
+        $this->testVendingMachineWithStatistic = new VendingMachineWithStatistic([
             new Article("Smarlies", "A01", 100, 1.60),
             new Article("Carampar", "A02", 50, 0.60),
             new Article("Avril", "A03", 20, 2.10),
             new Article("KokoKola", "A04", 10, 2.95)
         ]);
         // Insert money in the vending machine
-        $this->testVendingMachine->Insert(1000.00);
-        $this->testSaleStatistic->SetTime("2020-01-01T20:30:00");
-        $this->testVendingMachine->Choose("A01");
-        $this->testSaleStatistic->SetTime("2020-03-01T23:30:00");
-        $this->testVendingMachine->Choose("A01");
-        $this->testSaleStatistic->SetTime("2020-03-01T09:22:00");
-        $this->testVendingMachine->Choose("A01");
-        $this->testSaleStatistic->SetTime("2020-04-01T23:00:00");
-        $this->testVendingMachine->Choose("A01");
-        $this->testSaleStatistic->SetTime("2020-04-01T23:59:59");
-        $this->testVendingMachine->Choose("A01");
-        $this->testSaleStatistic->SetTime("2020-04-01T09:12:00");
-        $this->testVendingMachine->Choose("A01");
+        $this->testVendingMachineWithStatistic->Insert(1000.00);
+        $this->testVendingMachineWithStatistic->SetTime("2020-01-01T20:30:00");
+        $this->testVendingMachineWithStatistic->Choose("A01");
+        $this->testVendingMachineWithStatistic->SetTime("2020-03-01T23:30:00");
+        $this->testVendingMachineWithStatistic->Choose("A01");
+        $this->testVendingMachineWithStatistic->SetTime("2020-03-01T09:22:00");
+        $this->testVendingMachineWithStatistic->Choose("A01");
+        $this->testVendingMachineWithStatistic->SetTime("2020-04-01T23:00:00");
+        $this->testVendingMachineWithStatistic->Choose("A01");
+        $this->testVendingMachineWithStatistic->SetTime("2020-04-01T23:59:59");
+        $this->testVendingMachineWithStatistic->Choose("A01");
+        $this->testVendingMachineWithStatistic->SetTime("2020-04-01T09:12:00");
+        $this->testVendingMachineWithStatistic->Choose("A01");
         // When
-        $getBestHours = $this->testSaleStatistic->GetBestsHours();
+        $getBestHours = $this->testVendingMachineWithStatistic->GetBestHours();
         // Then
-        $this->assertEquals($getBestHours[0], "Hour 23 generated a revenue of 4.80");
-        $this->assertEquals($getBestHours[1], "Hour 9 generated a revenue of 3.20");
-        $this->assertEquals($getBestHours[2], "Hour 20 generated a revenue of 1.60");
+        $this->assertEquals("Hour " . $getBestHours[0][0] . " generated a revenue of " . sprintf("%.2f",$getBestHours[0][1]), "Hour 23 generated a revenue of 4.80");
+        $this->assertEquals("Hour " . $getBestHours[1][0] . " generated a revenue of " . sprintf("%.2f",$getBestHours[1][1]), "Hour 9 generated a revenue of 3.20");
+        $this->assertEquals("Hour " . $getBestHours[2][0] . " generated a revenue of " . sprintf("%.2f",$getBestHours[2][1]), "Hour 20 generated a revenue of 1.60");
     }
 }

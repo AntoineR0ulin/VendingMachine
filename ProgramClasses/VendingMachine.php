@@ -8,7 +8,6 @@ class VendingMachine
     private float $balance = 0;
     // Initial change of the vending machine
     private float $change = 0;
-    private SaleStatistic $saleStatistic;
 
     /**
      * @brief This function is the contructor of the object Vending Machine
@@ -16,7 +15,6 @@ class VendingMachine
      */
     public function __construct(array $listArticles){
         $this->listArticles = $listArticles;
-        $this->saleStatistic = new SaleStatistic();
     }
     /**
      * @brief This function is the getter of the property Change
@@ -43,6 +41,15 @@ class VendingMachine
     {
         $this->change += $amount;
     }
+    public function GetArticle(string $code) : Article|null
+    {
+        foreach ($this->listArticles as $article){
+            if ($code == $article->GetCode()){
+                return $article;
+            }
+        }
+        return null;
+    }
     /**
      * @brief This function is designed to choose a purchase inside the vending machine
      * @param string $code
@@ -50,17 +57,18 @@ class VendingMachine
      */
     public function Choose(string $code) : string
     {
-        foreach ($this->listArticles as $article){
-            if ($code == $article->GetCode()){
-                if ($this->getChange() >= $article->GetPrice()){
-                    if ($article->GetQuantity() > 0){
-                        $this->change -= $article->GetPrice();
-                        $this->balance += $article->GetPrice();
-                        $this->saleStatistic->AddPurchase($article->GetPrice());
-                        $article->ReduceQuantity();
-                        return "Vending " . $article->getName();
+        $selectedArticle = $this->GetArticle($code);
+
+        if ($selectedArticle != null) {
+            if ($code == $selectedArticle->GetCode()){
+                if ($this->getChange() >= $selectedArticle->GetPrice()){
+                    if ($selectedArticle->GetQuantity() > 0){
+                        $this->change -= $selectedArticle->GetPrice();
+                        $this->balance += $selectedArticle->GetPrice();
+                        $selectedArticle->ReduceQuantity();
+                        return "Vending " . $selectedArticle->getName();
                     }
-                    return "Item " . $article->getName() .": Out of stock!";
+                    return "Item " . $selectedArticle->getName() .": Out of stock!";
                 }
                 return "Not enough money!";
             }
