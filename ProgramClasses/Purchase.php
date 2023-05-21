@@ -1,5 +1,4 @@
 <?php
-
 class Purchase
 {
     // Date of the purchase

@@ -1,4 +1,5 @@
 <?php
+require_once dirname(__FILE__) . "/../ProgramClasses/Purchase.php";
 class VendingMachineWithStatistic extends VendingMachine
 {
     // List of purchases of the vending machine
