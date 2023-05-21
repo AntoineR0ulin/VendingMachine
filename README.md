@@ -2,6 +2,13 @@
 This project has been done for a small project for the ES study interview at CPNV Sainte-Croix. 
 The specification of the job can be found in the CdC_TravailEntretienES.pdf of this repository.
 
+## Prerequisites
+Php 8.2
+
+PhpUnit 10.0
+
+Php Editor (PhpStorm fot the phpstorm part in installation)
+
 ## Installation
 On Git, you need to :
 
