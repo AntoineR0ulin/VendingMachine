@@ -1,0 +1,8 @@
+# Composer
+/vendor
+
+# PhpStorm Files
+.idea/
+
+# Php Unit
+.phpunit.result.cache

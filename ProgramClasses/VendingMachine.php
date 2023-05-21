@@ -40,6 +40,11 @@ class VendingMachine
     {
         $this->change += $amount;
     }
+    /**
+     * @brief This function is designed to get the Article that has code that match th one given
+     * @param string $code
+     * @return Article|null
+     */
     public function GetArticle(string $code) : Article|null
     {
         foreach ($this->listArticles as $article){

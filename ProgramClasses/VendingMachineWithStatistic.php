@@ -1,9 +1,17 @@
 <?php
 class VendingMachineWithStatistic extends VendingMachine
 {
+    // List of purchases of the vending machine
     private array $purchases;
+    // Date of the purchase
     private DateTime $dateOfPurchase;
+    // Define if the function SetTime has been used or not
     private bool $setTimeUsed;
+
+    /**
+     * @brief This is the constructor of this object
+     * @param array $listArticles
+     */
     public function __construct(array $listArticles)
     {
         $this->dateOfPurchase = new DateTime('now');
@@ -11,6 +19,11 @@ class VendingMachineWithStatistic extends VendingMachine
         $this->setTimeUsed = false;
         parent::__construct($listArticles);
     }
+    /**
+     * @brief This function is designed to SetTime of a purchase
+     * @param string $date
+     * @return void
+     */
     public function SetTime(string $date) : void
     {
         try {
@@ -21,6 +34,11 @@ class VendingMachineWithStatistic extends VendingMachine
             // TODO Return error message
         }
     }
+    /**
+     * @brief This function is override of the function choose of the vendingmachine class
+     * @param string $code
+     * @return string
+     */
     public function Choose(string $code) : string
     {
         if (!$this->setTimeUsed){
@@ -33,7 +51,11 @@ class VendingMachineWithStatistic extends VendingMachine
         }
         return parent::Choose($code);
     }
-
+    /**
+     * @brief This function is designed to reorder and keep only the 3 best hours
+     * @param int $limitDisplayedHours
+     * @return array
+     */
     public function GetBestHours(int $limitDisplayedHours = 3) : array
     {
         $listOfHour = [];

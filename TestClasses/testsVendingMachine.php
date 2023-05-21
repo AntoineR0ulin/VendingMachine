@@ -77,7 +77,7 @@ class testsVendingMachine extends TestCase
         $this->assertSame(1.00, $this->testVendingMachine->GetChange());
         // Verify the message returned by the function choose with A02 param and match it with the expected message
         $this->assertSame('Vending Carampar', $this->testVendingMachine->Choose("A02"));
-        // Verify if the change left after calling function choose with A02 and match it with expected change
+        // Verify if the change left after calling function choose with A02 and A01 and match it with expected change
         $this->assertSame(0.40, $this->testVendingMachine->GetChange());
     }
     public function testChoose_A05InvalidSelection_Success() : void
@@ -123,9 +123,9 @@ class testsVendingMachine extends TestCase
         $this->assertSame('Item KokoKola: Out of stock!', $this->testVendingMachine->Choose("A04"));
         // Verify the message returned by the function choose with A01 param and match it with the expected message
         $this->assertSame('Vending Smarlies', $this->testVendingMachine->Choose("A01"));
-        // Verify the message returned by the function choose with A04 param and match it with the expected message
+        // Verify the message returned by the function choose with A02 param and match it with the expected message
         $this->assertSame('Vending Carampar', $this->testVendingMachine->Choose("A02"));
-        // Verify the message returned by the function choose with A04 param and match it with the expected message
+        // Verify the message returned by the function choose with A02 param and match it with the expected message
         $this->assertSame('Vending Carampar', $this->testVendingMachine->Choose("A02"));
         // Verify if the change left after calling all function choose and match it with expected change
         $this->assertSame(6.25, $this->testVendingMachine->GetChange());
